@@ -1,20 +1,22 @@
 package com.apuntes.backend_apuntes.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +32,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll() // Permite el acceso a /api/auth/**
                         .requestMatchers(
-                                "/api/auth/**",
                                 // Endpoints de Swagger UI
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -43,6 +45,11 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/swagger-ui.html"
                         ).permitAll() // Permite el acceso a todos estos
+                        .requestMatchers(HttpMethod.GET, "/api/materias/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/materiales/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos/**").permitAll()
+
                         .anyRequest().authenticated() // Cualquier otra request pide autenticacoin
                 )
                 .sessionManagement(session -> session
