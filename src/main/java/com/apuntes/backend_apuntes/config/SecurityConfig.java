@@ -48,6 +48,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/materias/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/materiales/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/pedidos/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pedidos/**").hasAuthority("ROLE_ADMIN")
 
                         .anyRequest().authenticated() // Cualquier otra request pide autenticacoin
                 )

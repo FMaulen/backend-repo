@@ -1,0 +1,3 @@
+--INSERT INTO materias (id, name, code) VALUES (1, 'Fundamentos de Programación', 'DSY-1101');
+--INSERT INTO materias (id, name, code) VALUES (2, 'Base de Datos', 'BDY-1101');
+--INSERT INTO materias (id, name, code) VALUES (3, 'Ciberseguridad', 'CIB-1101');
