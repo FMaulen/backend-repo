@@ -47,8 +47,7 @@ public class SecurityConfig {
                         ).permitAll() // Permite el acceso a todos estos
                         .requestMatchers(HttpMethod.GET, "/api/materias/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/materiales/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/pedidos/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/pedidos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos/**").authenticated()
 
                         .anyRequest().authenticated() // Cualquier otra request pide autenticacoin
                 )
